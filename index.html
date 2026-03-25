@@ -9,1267 +9,173 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-/* ============================================
-   CSS CUSTOM PROPERTIES
-   ============================================ */
-:root {
-  --coral: #E8735A;
-  --coral-light: #F4A69A;
-  --coral-pale: #FDE8E4;
-  --teal: #1B6B6D;
-  --teal-dark: #134E4F;
-  --teal-light: #2A9D8F;
-  --teal-pale: #E0F0EE;
-  --cream: #FFF8F0;
-  --cream-dark: #F5EDE3;
-  --warm-gray: #6B5E54;
-  --warm-gray-light: #A69A90;
-  --text-primary: #2C2420;
-  --text-secondary: #5C514A;
-  --text-light: #8A7E76;
-  --white: #FFFFFF;
-  --shadow-sm: 0 1px 3px rgba(44,36,32,0.06), 0 1px 2px rgba(44,36,32,0.04);
-  --shadow-md: 0 4px 12px rgba(44,36,32,0.08), 0 2px 4px rgba(44,36,32,0.04);
-  --shadow-lg: 0 12px 32px rgba(44,36,32,0.1), 0 4px 8px rgba(44,36,32,0.04);
-  --shadow-xl: 0 20px 48px rgba(44,36,32,0.12), 0 8px 16px rgba(44,36,32,0.06);
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
-  --transition-fast: 0.15s ease;
-  --transition-med: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ============================================
-   RESET & BASE
-   ============================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-body {
-  font-family: 'DM Sans', -apple-system, sans-serif;
-  background: var(--cream);
-  color: var(--text-primary);
-  line-height: 1.65;
-  overflow-x: hidden;
-}
-
-/* ============================================
-   BACKGROUND TEXTURE
-   ============================================ */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 10% 20%, rgba(232,115,90,0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 90% 80%, rgba(27,107,109,0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(244,166,154,0.03) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ============================================
-   LAYOUT
-   ============================================ */
-.container {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 24px;
-  position: relative;
-  z-index: 1;
-}
-
-/* ============================================
-   HEADER / HERO
-   ============================================ */
-.hero {
-  padding: 64px 0 48px;
-  text-align: center;
-  position: relative;
-}
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--teal-pale);
-  color: var(--teal);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 6px 16px;
-  border-radius: 100px;
-  margin-bottom: 24px;
-  animation: fadeInDown 0.6s ease both;
-}
-.hero-badge::before {
-  content: '✦';
-  font-size: 0.7rem;
-}
-.hero h1 {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: clamp(2.4rem, 6vw, 4rem);
-  line-height: 1.1;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-  animation: fadeInDown 0.6s 0.1s ease both;
-}
-.hero h1 span {
-  color: var(--coral);
-}
-.hero-subtitle {
-  font-size: 1.15rem;
-  color: var(--text-secondary);
-  max-width: 640px;
-  margin: 0 auto 12px;
-  animation: fadeInDown 0.6s 0.2s ease both;
-}
-.hero-meta {
-  font-size: 0.9rem;
-  color: var(--text-light);
-  animation: fadeInDown 0.6s 0.3s ease both;
-}
-.hero-meta strong { color: var(--teal); font-weight: 600; }
-
-/* ============================================
-   DISCLAIMER
-   ============================================ */
-.disclaimer {
-  background: linear-gradient(135deg, var(--teal-pale), rgba(224,240,238,0.5));
-  border: 1px solid rgba(27,107,109,0.12);
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-  margin-bottom: 40px;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 0.88rem;
-  color: var(--teal-dark);
-  line-height: 1.5;
-  animation: fadeInDown 0.6s 0.4s ease both;
-}
-.disclaimer-icon {
-  font-size: 1.2rem;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-/* ============================================
-   CONTROLS: SEARCH + FILTERS
-   ============================================ */
-.controls {
-  margin-bottom: 40px;
-  animation: fadeInDown 0.6s 0.5s ease both;
-}
-.search-wrap {
-  position: relative;
-  margin-bottom: 16px;
-}
-.search-icon {
-  position: absolute;
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  color: var(--warm-gray-light);
-  pointer-events: none;
-}
-.search-input {
-  width: 100%;
-  padding: 14px 20px 14px 50px;
-  font-family: inherit;
-  font-size: 1rem;
-  border: 2px solid var(--cream-dark);
-  border-radius: var(--radius-lg);
-  background: var(--white);
-  color: var(--text-primary);
-  outline: none;
-  transition: var(--transition-med);
-  box-shadow: var(--shadow-sm);
-}
-.search-input::placeholder { color: var(--warm-gray-light); }
-.search-input:focus {
-  border-color: var(--teal-light);
-  box-shadow: var(--shadow-md), 0 0 0 3px rgba(42,157,143,0.1);
-}
-.filter-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-}
-.filter-label {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--text-light);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-right: 4px;
-}
-.filter-btn {
-  padding: 6px 14px;
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 500;
-  border: 1.5px solid var(--cream-dark);
-  border-radius: 100px;
-  background: var(--white);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: var(--transition-fast);
-  white-space: nowrap;
-}
-.filter-btn:hover {
-  border-color: var(--coral-light);
-  color: var(--coral);
-  background: var(--coral-pale);
-}
-.filter-btn.active {
-  border-color: var(--coral);
-  background: var(--coral);
-  color: var(--white);
-}
-.filter-btn.active:hover {
-  background: var(--coral-light);
-  border-color: var(--coral-light);
-}
-
-/* ============================================
-   TIER SECTIONS
-   ============================================ */
-.tier {
-  margin-bottom: 48px;
-}
-.tier-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
-  cursor: pointer;
-  user-select: none;
-  padding: 16px 20px;
-  border-radius: var(--radius-lg);
-  transition: var(--transition-fast);
-}
-.tier-header:hover { background: rgba(0,0,0,0.02); }
-.tier-emoji {
-  font-size: 2rem;
-  width: 52px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-md);
-  flex-shrink: 0;
-}
-.tier--dip .tier-emoji { background: var(--teal-pale); }
-.tier--wade .tier-emoji { background: #FFF3E0; }
-.tier--cannonball .tier-emoji { background: var(--coral-pale); }
-.tier--principle .tier-emoji { background: #EDE7F6; }
-.tier-text h2 {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 1.6rem;
-  color: var(--text-primary);
-  line-height: 1.2;
-}
-.tier-text p {
-  font-size: 0.9rem;
-  color: var(--text-light);
-  margin-top: 2px;
-}
-.tier-chevron {
-  margin-left: auto;
-  width: 24px;
-  height: 24px;
-  color: var(--warm-gray-light);
-  transition: transform var(--transition-med);
-  flex-shrink: 0;
-}
-.tier.collapsed .tier-chevron { transform: rotate(-90deg); }
-.tier-cards {
-  display: grid;
-  gap: 16px;
-  overflow: hidden;
-  transition: max-height var(--transition-slow), opacity var(--transition-med);
-}
-.tier.collapsed .tier-cards {
-  max-height: 0 !important;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* ============================================
-   EXPERIMENT CARDS
-   ============================================ */
-.card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  border: 1.5px solid rgba(0,0,0,0.05);
-  overflow: hidden;
-  transition: var(--transition-med);
-  box-shadow: var(--shadow-sm);
-}
-.card:hover {
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(0,0,0,0.08);
-  transform: translateY(-2px);
-}
-.card.hidden { display: none; }
-.card-header {
-  padding: 20px 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  user-select: none;
-}
-.card-number {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 1.5rem;
-  color: var(--coral);
-  line-height: 1;
-  min-width: 36px;
-  padding-top: 2px;
-}
-.card-summary { flex: 1; }
-.card-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.3;
-  margin-bottom: 4px;
-}
-.card-oneliner {
-  font-size: 0.92rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-.card-expand-icon {
-  width: 20px;
-  height: 20px;
-  color: var(--warm-gray-light);
-  transition: transform var(--transition-med);
-  flex-shrink: 0;
-  margin-top: 4px;
-}
-.card.open .card-expand-icon { transform: rotate(180deg); }
-
-.card-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height var(--transition-slow);
-}
-.card-body-inner {
-  padding: 0 24px 24px;
-  padding-left: 76px;
-}
-
-/* Steal This */
-.steal-this {
-  background: linear-gradient(135deg, var(--coral-pale), #FFF0EC);
-  border-left: 3px solid var(--coral);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  font-size: 0.92rem;
-  line-height: 1.5;
-}
-.steal-this strong {
-  color: var(--coral);
-}
-
-/* Course tag */
-.card-course {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.8rem;
-  color: var(--teal);
-  background: var(--teal-pale);
-  padding: 3px 10px;
-  border-radius: 100px;
-  font-weight: 500;
-  margin-bottom: 14px;
-}
-
-/* Tools */
-.card-tools-label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-light);
-  margin-bottom: 8px;
-}
-.card-tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.tool-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--teal);
-  text-decoration: none;
-  padding: 5px 12px;
-  border: 1.5px solid var(--teal-pale);
-  border-radius: 100px;
-  transition: var(--transition-fast);
-  background: var(--white);
-}
-.tool-link:hover {
-  background: var(--teal-pale);
-  border-color: var(--teal-light);
-  color: var(--teal-dark);
-}
-.tool-link svg {
-  width: 12px;
-  height: 12px;
-  flex-shrink: 0;
-}
-.tool-nolink {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-light);
-  padding: 5px 12px;
-  border: 1.5px solid var(--cream-dark);
-  border-radius: 100px;
-  background: var(--cream);
-}
-
-/* Tags for filtering */
-.card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 12px;
-}
-.card-tag {
-  font-size: 0.75rem;
-  padding: 2px 8px;
-  border-radius: 100px;
-  background: var(--cream-dark);
-  color: var(--text-light);
-  font-weight: 500;
-}
-
-/* ============================================
-   STATS BAR
-   ============================================ */
-.stats-bar {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  flex-wrap: wrap;
-  padding: 32px 0;
-  margin-bottom: 8px;
-  animation: fadeInDown 0.6s 0.45s ease both;
-}
-.stat {
-  text-align: center;
-}
-.stat-number {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 2.2rem;
-  color: var(--coral);
-  line-height: 1;
-}
-.stat-label {
-  font-size: 0.82rem;
-  color: var(--text-light);
-  margin-top: 4px;
-  font-weight: 500;
-}
-
-/* ============================================
-   NO RESULTS
-   ============================================ */
-.no-results {
-  text-align: center;
-  padding: 64px 24px;
-  color: var(--text-light);
-  font-size: 1.05rem;
-  display: none;
-}
-.no-results.visible { display: block; }
-.no-results-emoji { font-size: 2.5rem; margin-bottom: 12px; }
-
-/* ============================================
-   FOOTER
-   ============================================ */
-.site-footer {
-  text-align: center;
-  padding: 48px 24px;
-  border-top: 1px solid var(--cream-dark);
-  margin-top: 32px;
-}
-.footer-name {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 1.15rem;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-}
-.footer-affiliation {
-  font-size: 0.88rem;
-  color: var(--text-light);
-  margin-bottom: 16px;
-}
-.footer-disclaimer {
-  font-size: 0.78rem;
-  color: var(--warm-gray-light);
-  max-width: 540px;
-  margin: 0 auto;
-  line-height: 1.5;
-}
-
-/* ============================================
-   ANIMATIONS
-   ============================================ */
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.card {
-  animation: fadeInUp 0.4s ease both;
-}
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (max-width: 768px) {
-  .hero { padding: 40px 0 32px; }
-  .stats-bar { gap: 24px; }
-  .stat-number { font-size: 1.8rem; }
-  .card-header { padding: 16px 18px; gap: 12px; }
-  .card-body-inner { padding-left: 54px; padding-right: 18px; }
-  .card-number { font-size: 1.3rem; min-width: 28px; }
-  .filter-row { gap: 6px; }
-  .tier-header { padding: 12px 8px; }
-}
-
-@media (max-width: 480px) {
-  .card-body-inner { padding-left: 18px; }
-  .hero h1 { font-size: 2rem; }
-  .tier-text h2 { font-size: 1.3rem; }
-}
-
-/* ============================================
-   PRINT STYLES
-   ============================================ */
-@media print {
-  body::before { display: none; }
-  .controls, .tier-chevron, .card-expand-icon { display: none; }
-  .card-body { max-height: none !important; }
-  .tier.collapsed .tier-cards { max-height: none !important; opacity: 1; pointer-events: auto; }
-  .card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
-}
+:root{--coral:#E8735A;--coral-light:#F4A69A;--coral-pale:#FDE8E4;--teal:#1B6B6D;--teal-dark:#134E4F;--teal-light:#2A9D8F;--teal-pale:#E0F0EE;--cream:#FFF8F0;--cream-dark:#F5EDE3;--warm-gray:#6B5E54;--warm-gray-light:#A69A90;--text-primary:#2C2420;--text-secondary:#5C514A;--text-light:#8A7E76;--white:#FFFFFF;--shadow-sm:0 1px 3px rgba(44,36,32,.06),0 1px 2px rgba(44,36,32,.04);--shadow-md:0 4px 12px rgba(44,36,32,.08),0 2px 4px rgba(44,36,32,.04);--shadow-lg:0 12px 32px rgba(44,36,32,.1),0 4px 8px rgba(44,36,32,.04);--radius-sm:8px;--radius-md:12px;--radius-lg:20px;--t-fast:.15s ease;--t-med:.3s cubic-bezier(.4,0,.2,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--cream);color:var(--text-primary);line-height:1.65;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 20%,rgba(232,115,90,.06) 0%,transparent 50%),radial-gradient(ellipse at 90% 80%,rgba(27,107,109,.05) 0%,transparent 50%);pointer-events:none;z-index:0}
+.ctr{max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.hero{padding:64px 0 48px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--teal-pale);color:var(--teal);font-size:.8rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:24px}
+.hero-badge::before{content:'\2726';font-size:.7rem}
+.hero h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(2.4rem,6vw,4rem);line-height:1.1;margin-bottom:16px}
+.hero h1 span{color:var(--coral)}
+.hero-sub{font-size:1.15rem;color:var(--text-secondary);max-width:640px;margin:0 auto 12px}
+.hero-meta{font-size:.9rem;color:var(--text-light)}
+.hero-meta strong{color:var(--teal);font-weight:600}
+.disc{background:linear-gradient(135deg,var(--teal-pale),rgba(224,240,238,.5));border:1px solid rgba(27,107,109,.12);border-radius:var(--radius-md);padding:16px 20px;margin-bottom:40px;display:flex;align-items:flex-start;gap:12px;font-size:.88rem;color:var(--teal-dark);line-height:1.5}
+.disc-icon{font-size:1.2rem;flex-shrink:0}
+.stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;padding:32px 0;margin-bottom:8px}
+.stat{text-align:center}
+.stat-n{font-family:'DM Serif Display',Georgia,serif;font-size:2.2rem;color:var(--coral);line-height:1}
+.stat-l{font-size:.82rem;color:var(--text-light);margin-top:4px;font-weight:500}
+.ctrl{margin-bottom:40px}
+.s-wrap{position:relative;margin-bottom:16px}
+.s-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--warm-gray-light);pointer-events:none}
+.s-in{width:100%;padding:14px 20px 14px 50px;font-family:inherit;font-size:1rem;border:2px solid var(--cream-dark);border-radius:var(--radius-lg);background:var(--white);color:var(--text-primary);outline:none;transition:var(--t-med);box-shadow:var(--shadow-sm)}
+.s-in::placeholder{color:var(--warm-gray-light)}
+.s-in:focus{border-color:var(--teal-light);box-shadow:var(--shadow-md),0 0 0 3px rgba(42,157,143,.1)}
+.f-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.f-label{font-size:.82rem;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;margin-right:4px}
+.f-btn{padding:6px 14px;font-family:inherit;font-size:.85rem;font-weight:500;border:1.5px solid var(--cream-dark);border-radius:100px;background:var(--white);color:var(--text-secondary);cursor:pointer;transition:var(--t-fast);white-space:nowrap}
+.f-btn:hover{border-color:var(--coral-light);color:var(--coral);background:var(--coral-pale)}
+.f-btn.on{border-color:var(--coral);background:var(--coral);color:var(--white)}
+.tier{margin-bottom:48px}
+.tier-h{display:flex;align-items:center;gap:16px;margin-bottom:24px;cursor:pointer;user-select:none;padding:16px 20px;border-radius:var(--radius-lg);transition:var(--t-fast)}
+.tier-h:hover{background:rgba(0,0,0,.02)}
+.tier-e{font-size:2rem;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);flex-shrink:0}
+.t-dip .tier-e{background:var(--teal-pale)}.t-wade .tier-e{background:#FFF3E0}.t-cb .tier-e{background:var(--coral-pale)}.t-pr .tier-e{background:#EDE7F6}
+.tier-t h2{font-family:'DM Serif Display',Georgia,serif;font-size:1.6rem;line-height:1.2}
+.tier-t p{font-size:.9rem;color:var(--text-light);margin-top:2px}
+.tier-ch{margin-left:auto;width:24px;height:24px;color:var(--warm-gray-light);transition:transform var(--t-med);flex-shrink:0}
+.tier.off .tier-ch{transform:rotate(-90deg)}
+.tier-c{display:grid;gap:16px}
+.tier.off .tier-c{display:none}
+.card{background:var(--white);border-radius:var(--radius-lg);border:1.5px solid rgba(0,0,0,.05);overflow:hidden;transition:box-shadow var(--t-med),border-color var(--t-med),transform var(--t-med);box-shadow:var(--shadow-sm)}
+.card:hover{box-shadow:var(--shadow-lg);border-color:rgba(0,0,0,.08);transform:translateY(-2px)}
+.card.hid{display:none}
+.card-h{padding:20px 24px;cursor:pointer;display:flex;align-items:flex-start;gap:16px;user-select:none}
+.card-num{font-family:'DM Serif Display',Georgia,serif;font-size:1.5rem;color:var(--coral);line-height:1;min-width:36px;padding-top:2px}
+.card-s{flex:1}
+.card-ti{font-size:1.1rem;font-weight:700;line-height:1.3;margin-bottom:4px}
+.card-ol{font-size:.92rem;color:var(--text-secondary);line-height:1.5}
+.card-ei{width:20px;height:20px;color:var(--warm-gray-light);transition:transform var(--t-med);flex-shrink:0;margin-top:4px}
+.card.open .card-ei{transform:rotate(180deg)}
+.card-b{display:none}
+.card.open .card-b{display:block}
+.card-bi{padding:0 24px 24px 76px}
+.st{background:linear-gradient(135deg,var(--coral-pale),#FFF0EC);border-left:3px solid var(--coral);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:12px 16px;margin-bottom:16px;font-size:.92rem;line-height:1.5}
+.st strong{color:var(--coral)}
+.card-co{display:inline-flex;font-size:.8rem;color:var(--teal);background:var(--teal-pale);padding:3px 10px;border-radius:100px;font-weight:500;margin-bottom:14px}
+.card-d{font-size:.9rem;color:var(--text-secondary);line-height:1.7;margin-bottom:16px}
+.card-d p{margin-bottom:10px}
+.card-d p:last-child{margin-bottom:0}
+.tl{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-light);margin-bottom:8px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.tc{background:var(--white);border:1.5px solid var(--cream-dark);border-radius:var(--radius-md);padding:10px 14px;font-size:.85rem;line-height:1.5;transition:var(--t-fast);flex:1 1 280px;max-width:100%}
+.tc:hover{border-color:var(--teal-light);background:rgba(224,240,238,.3)}
+.tc-n{font-weight:700;color:var(--teal);margin-bottom:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.tc-n a{color:var(--teal);text-decoration:none;border-bottom:1px dashed var(--teal-light)}
+.tc-n a:hover{color:var(--teal-dark);border-bottom-style:solid}
+.tc-d{color:var(--text-secondary);margin-top:4px;font-size:.84rem}
+.badge-f{display:inline-block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--teal);background:var(--teal-pale);padding:2px 6px;border-radius:4px}
+.badge-p{display:inline-block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--coral);background:var(--coral-pale);padding:2px 6px;border-radius:4px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{font-size:.75rem;padding:2px 8px;border-radius:100px;background:var(--cream-dark);color:var(--text-light);font-weight:500}
+.nr{text-align:center;padding:64px 24px;color:var(--text-light);font-size:1.05rem;display:none}
+.nr.vis{display:block}
+.nr-e{font-size:2.5rem;margin-bottom:12px}
+footer{text-align:center;padding:48px 24px;border-top:1px solid var(--cream-dark);margin-top:32px}
+.fn{font-family:'DM Serif Display',Georgia,serif;font-size:1.15rem;margin-bottom:4px}
+.fa{font-size:.88rem;color:var(--text-light);margin-bottom:16px}
+.fd{font-size:.78rem;color:var(--warm-gray-light);max-width:540px;margin:0 auto;line-height:1.5}
+@media(max-width:768px){.hero{padding:40px 0 32px}.stats{gap:24px}.stat-n{font-size:1.8rem}.card-h{padding:16px 18px;gap:12px}.card-bi{padding-left:54px;padding-right:18px}.card-num{font-size:1.3rem;min-width:28px}.tier-h{padding:12px 8px}.tc{flex:1 1 100%}}
+@media(max-width:480px){.card-bi{padding-left:18px}.hero h1{font-size:2rem}.tier-t h2{font-size:1.3rem}}
+@media print{body::before{display:none}.ctrl,.tier-ch,.card-ei{display:none}.card-b{display:block!important}.tier.off .tier-c{display:grid!important}.card{break-inside:avoid;box-shadow:none;border:1px solid #ddd}}
 </style>
 </head>
 <body>
-
-<div class="container">
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-badge">Summer Faculty Development Series</div>
-    <h1><span>27 Ways</span> to Experiment with AI</h1>
-    <p class="hero-subtitle">A companion resource to the presentation — every experiment, every tool, and the transferable principle behind each one.</p>
-    <p class="hero-meta">By <strong>Kyle Chalupczynski</strong> · Management Information Systems · Penn State Behrend</p>
-  </header>
-
-  <!-- DISCLAIMER -->
-  <div class="disclaimer">
-    <span class="disclaimer-icon">⚡</span>
-    <span>The AI landscape changes fast. Tools, features, and links listed here were current as of the presentation date and may have changed. When in doubt, search for the tool name — the core platforms aren't going anywhere, even if specific features evolve.</span>
-  </div>
-
-  <!-- STATS -->
-  <div class="stats-bar">
-    <div class="stat"><div class="stat-number">27</div><div class="stat-label">Experiments</div></div>
-    <div class="stat"><div class="stat-number">4</div><div class="stat-label">Courses</div></div>
-    <div class="stat"><div class="stat-number">2.5</div><div class="stat-label">Years of "Let's Try It"</div></div>
-    <div class="stat"><div class="stat-number">40+</div><div class="stat-label">Tools Referenced</div></div>
-  </div>
-
-  <!-- CONTROLS -->
-  <div class="controls">
-    <div class="search-wrap">
-      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" class="search-input" id="searchInput" placeholder="Search experiments, tools, or principles…" autocomplete="off">
-    </div>
-    <div class="filter-row">
-      <span class="filter-label">Filter:</span>
-      <button class="filter-btn active" data-filter="all">All 27</button>
-      <button class="filter-btn" data-filter="free">Free Tools</button>
-      <button class="filter-btn" data-filter="custom-gpt">Uses Custom GPTs</button>
-      <button class="filter-btn" data-filter="any-discipline">Works in Any Discipline</button>
-      <button class="filter-btn" data-filter="low-lift">Low Lift to Start</button>
-    </div>
-  </div>
-
-  <!-- NO RESULTS MESSAGE -->
-  <div class="no-results" id="noResults">
-    <div class="no-results-emoji">🔍</div>
-    <p>No experiments match your search. Try different keywords or clear your filters.</p>
-  </div>
-
-  <!-- ============================
-       TIER 1: DIP YOUR TOE
-       ============================ -->
-  <section class="tier tier--dip" id="tier-dip">
-    <div class="tier-header" onclick="toggleTier(this)">
-      <div class="tier-emoji">🏖️</div>
-      <div class="tier-text">
-        <h2>Dip Your Toe</h2>
-        <p>Low-lift experiments you could try this semester</p>
-      </div>
-      <svg class="tier-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="tier-cards">
-
-      <!-- #1 -->
-      <div class="card" data-tags="free,any-discipline,low-lift" data-search="study mode learning chatgpt gemini claude socratic tutoring quiz guided learning learnlm">
-        <div class="card-header" onclick="toggleCard(this)">
-          <div class="card-number">01</div>
-          <div class="card-summary">
-            <div class="card-title">Learning & Study Modes</div>
-            <div class="card-oneliner">All three major platforms now have Socratic tutoring modes that guide instead of giving answers.</div>
-          </div>
-          <svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="card-body">
-          <div class="card-body-inner">
-            <div class="steal-this"><strong>🔑 Steal This:</strong> Point students to any platform's study mode for your subject. They get Socratic tutoring — free, on-demand, and it won't just hand over answers.</div>
-            <div class="card-course">General · Any Course</div>
-            <div class="card-tools-label">Tools</div>
-            <div class="card-tools">
-              <a href="https://chatgpt.com" target="_blank" rel="noopener" class="tool-link">ChatGPT Study Mode <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-              <a href="https://gemini.google.com" target="_blank" rel="noopener" class="tool-link">Gemini Guided Learning <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-              <a href="https://claude.ai" target="_blank" rel="noopener" class="tool-link">Claude Learning Mode <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-            </div>
-            <div class="card-tags">
-              <span class="card-tag">Free</span>
-              <span class="card-tag">Any Discipline</span>
-              <span class="card-tag">Zero Setup</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- #2 -->
-      <div class="card" data-tags="free,any-discipline,low-lift" data-search="feature spotlight five minute demo custom instructions memory projects artifacts canvas deep research open source skills recurring">
-        <div class="card-header" onclick="toggleCard(this)">
-          <div class="card-number">02</div>
-          <div class="card-summary">
-            <div class="card-title">Feature Spotlight</div>
-            <div class="card-oneliner">A recurring 5-minute demo of one AI feature per week — students learn the ecosystem, not just one tool.</div>
-          </div>
-          <svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="card-body">
-          <div class="card-body-inner">
-            <div class="steal-this"><strong>🔑 Steal This:</strong> Dedicate 5 minutes per week to demoing one AI feature. By semester's end, students have seen 15 capabilities instead of just "chatbot."</div>
-            <div class="card-course">MIS 204 · Intro to MIS</div>
-            <div class="card-tools-label">Features Covered</div>
-            <div class="card-tools">
-              <span class="tool-nolink">Custom Instructions</span>
-              <span class="tool-nolink">Memory</span>
-              <span class="tool-nolink">Projects</span>
-              <span class="tool-nolink">Artifacts</span>
-              <span class="tool-nolink">Canvas</span>
-              <span class="tool-nolink">Deep Research</span>
-              <span class="tool-nolink">Open Source Models</span>
-              <span class="tool-nolink">Skills</span>
-            </div>
-            <div class="card-tags">
-              <span class="card-tag">Free</span>
-              <span class="card-tag">Any Discipline</span>
-              <span class="card-tag">Recurring Format</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- #3 -->
-      <div class="card" data-tags="free,any-discipline,low-lift" data-search="notebooklm discovery challenge google podcast audio overview source grounded">
-        <div class="card-header" onclick="toggleCard(this)">
-          <div class="card-number">03</div>
-          <div class="card-summary">
-            <div class="card-title">NotebookLM Discovery Challenge</div>
-            <div class="card-oneliner">Students explore NotebookLM's source-grounded AI — upload docs, generate podcasts, discover features themselves.</div>
-          </div>
-          <svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="card-body">
-          <div class="card-body-inner">
-            <div class="steal-this"><strong>🔑 Steal This:</strong> Give students a tool they've never seen and 30 minutes to explore it. Discovery beats instruction.</div>
-            <div class="card-course">MIS 204 · Intro to MIS</div>
-            <div class="card-tools-label">Tools</div>
-            <div class="card-tools">
-              <a href="https://notebooklm.google.com" target="_blank" rel="noopener" class="tool-link">Google NotebookLM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-            </div>
-            <div class="card-tags">
-              <span class="card-tag">Free</span>
-              <span class="card-tag">Any Discipline</span>
-              <span class="card-tag">Single Class Period</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- #4 -->
-      <div class="card" data-tags="free,any-discipline,low-lift" data-search="model explorer compare five models claude chatgpt gemini llama grok reasoning side by side comparison">
-        <div class="card-header" onclick="toggleCard(this)">
-          <div class="card-number">04</div>
-          <div class="card-summary">
-            <div class="card-title">AI Model Explorer</div>
-            <div class="card-oneliner">Same prompt, five different AIs. Students discover that models have distinct personalities, strengths, and blind spots.</div>
-          </div>
-          <svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="card-body">
-          <div class="card-body-inner">
-            <div class="steal-this"><strong>🔑 Steal This:</strong> Have students run the same prompt through 3–5 models and compare. Teaches critical evaluation better than any lecture on AI literacy.</div>
-            <div class="card-course">MIS 204 · Intro to MIS</div>
-            <div class="card-tools-label">Tools</div>
-            <div class="card-tools">
-              <a href="https://claude.ai" target="_blank" rel="noopener" class="tool-link">Claude <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-              <a href="https://chatgpt.com" target="_blank" rel="noopener" class="tool-link">ChatGPT <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-              <a href="https://gemini.google.com" target="_blank" rel="noopener" class="tool-link">Gemini <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-              <a href="https://x.ai" target="_blank" rel="noopener" class="tool-link">Grok <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-              <span class="tool-nolink">Llama (via Hugging Face)</span>
-            </div>
-            <div class="card-tags">
-              <span class="card-tag">Free</span>
-              <span class="card-tag">Any Discipline</span>
-              <span class="card-tag">AI Literacy</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- #5 -->
-      <div class="card" data-tags="free,low-lift" data-search="gpt store discovery custom gpts wolfram browse marketplace">
-        <div class="card-header" onclick="toggleCard(this)">
-          <div class="card-number">05</div>
-          <div class="card-summary">
-            <div class="card-title">GPT Store Discovery</div>
-            <div class="card-oneliner">Students browse 3 million+ custom GPTs and find ones relevant to their field — like an app store for AI.</div>
-          </div>
-          <svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="card-body">
-          <div class="card-body-inner">
-            <div class="steal-this"><strong>🔑 Steal This:</strong> Send students to the GPT Store with a challenge: find 4 custom GPTs relevant to your field and evaluate which is actually useful.</div>
-            <div class="card-course">MIS 204 · Intro to MIS</div>
-            <div class="card-tools-label">Tools</div>
-            <div class="card-tools">
-              <a href="https://chatgpt.com/gpts" target="_blank" rel="noopener" class="tool-link">ChatGPT GPT Store <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-              <span class="tool-nolink">Wolfram GPT (example)</span>
-            </div>
-            <div class="card-tags">
-              <span class="card-tag">Free (with ChatGPT Plus)</span>
-              <span class="card-tag">Low Lift</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ============================
-       TIER 2: WADE IN
-       ============================ -->
-  <section class="tier tier--wade" id="tier-wade">
-    <div class="tier-header" onclick="toggleTier(this)">
-      <div class="tier-emoji">🌊</div>
-      <div class="tier-text">
-        <h2>Wade In</h2>
-        <p>Side quests, creative projects, and structured AI assignments</p>
-      </div>
-      <svg class="tier-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="tier-cards">
-
-      <!-- #6 -->
-      <div class="card" data-tags="free,any-discipline" data-search="image generation souls window art creative visual dall-e midjourney gemini adobe firefly copilot">
-        <div class="card-header" onclick="toggleCard(this)">
-          <div class="card-number">06</div>
-          <div class="card-summary">
-            <div class="card-title">AI Image Generation (Soul's Window)</div>
-            <div class="card-oneliner">Students create AI art from emotional prompts and submit to a class gallery — exploring identity through image generation.</div>
-          </div>
-          <svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="card-body">
-          <div class="card-body-inner">
-            <div class="steal-this"><strong>🔑 Steal This:</strong> Pair AI image generation with a reflective prompt. Students learn prompting through creative expression, not technical drills.</div>
-            <div class="card-course">MIS 204 · Intro to MIS</div>
-            <div class="card-tools-label">Tools</div>
-            <div class="card-tools">
-              <a href="https://chatgpt.com" target="_blank" rel="noopener" class="tool-link">ChatGPT (GPT-4o Images) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-              <a href="https://gemini.google.com" target="_blank" rel="noopener" class="tool-link">Gemini <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-              <a href="https://copilot.microsoft.com" target="_blank" rel="noopener" class="tool-link">Microsoft Copilot <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-              <a href="https://www.adobe.com/express" target="_blank" rel="noopener" class="tool-link">Adobe Express <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-            </div>
-            <div class="card-tags"><span class="card-tag">Free Tiers Available</span><span class="card-tag">Creative</span><span class="card-tag">Any Discipline</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- #7 -->
-      <div class="card" data-tags="free,any-discipline" data-search="music suno album songs class track bonus creative audio">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">07</div><div class="card-summary"><div class="card-title">AI Music (Class Album Tracks)</div><div class="card-oneliner">Students compose original songs with AI and contribute to a class album — exploring a modality most haven't imagined.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Assign a creative AI modality students don't expect. Music generation is the ultimate "wait, AI does THIS?" moment.</div>
-          <div class="card-course">MIS 204 · Intro to MIS</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools">
-            <a href="https://suno.com" target="_blank" rel="noopener" class="tool-link">Suno <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-          </div>
-          <div class="card-tags"><span class="card-tag">Free Tier</span><span class="card-tag">Creative</span><span class="card-tag">Any Discipline</span></div>
-        </div></div>
-      </div>
-
-      <!-- #8 -->
-      <div class="card" data-tags="free" data-search="video commercial veo sora generation cinematic advertisement">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">08</div><div class="card-summary"><div class="card-title">AI Video Commercials</div><div class="card-oneliner">Students produce AI-generated video commercials for fictional products — cinematic output from text prompts.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> AI video generation lets students create polished media without production skills. Focus the assignment on the concept, not the camera.</div>
-          <div class="card-course">MIS 204 · Intro to MIS</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools">
-            <a href="https://deepmind.google/technologies/veo/" target="_blank" rel="noopener" class="tool-link">Google Veo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-            <a href="https://sora.com" target="_blank" rel="noopener" class="tool-link">OpenAI Sora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-          </div>
-          <div class="card-tags"><span class="card-tag">Free Tier (Veo via Gemini)</span><span class="card-tag">Creative</span></div>
-        </div></div>
-      </div>
-
-      <!-- #9 -->
-      <div class="card" data-tags="custom-gpt" data-search="custom gpt building culture ethics bot chatbot create design knowledge files">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">09</div><div class="card-summary"><div class="card-title">Custom GPT Building</div><div class="card-oneliner">Students build their own custom GPTs — culture bots, ethics advisors — learning that AI is something you shape, not just use.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Have students BUILD an AI tool, not just use one. Custom GPTs take 15 minutes to create and teach prompt engineering by doing.</div>
-          <div class="card-course">MIS 204 · Intro to MIS</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools">
-            <a href="https://chatgpt.com/gpts/editor" target="_blank" rel="noopener" class="tool-link">ChatGPT Custom GPTs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-          </div>
-          <div class="card-tags"><span class="card-tag">Requires ChatGPT Plus</span><span class="card-tag">Hands-On</span></div>
-        </div></div>
-      </div>
-
-      <!-- #10 -->
-      <div class="card" data-tags="free,any-discipline" data-search="vibe coding games canvas app build game natural language no-code programming karpathy">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">10</div><div class="card-summary"><div class="card-title">Vibe-Coding Games</div><div class="card-oneliner">Students describe a game in plain English — AI writes the code. Playable games from non-programmers in minutes.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> "Vibe coding" (Andrej Karpathy's term) lets anyone build functional apps from natural language. No coding background needed — students or faculty.</div>
-          <div class="card-course">MIS 204 · Intro to MIS</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools">
-            <a href="https://chatgpt.com" target="_blank" rel="noopener" class="tool-link">ChatGPT Canvas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-            <a href="https://claude.ai" target="_blank" rel="noopener" class="tool-link">Claude Artifacts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-            <a href="https://replit.com" target="_blank" rel="noopener" class="tool-link">Replit Agent <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-          </div>
-          <div class="card-tags"><span class="card-tag">Free Tiers Available</span><span class="card-tag">Any Discipline</span><span class="card-tag">Mind-Blowing</span></div>
-        </div></div>
-      </div>
-
-      <!-- #11 -->
-      <div class="card" data-tags="free,any-discipline" data-search="persistent context vehicle company profile project file upload document context window">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">11</div><div class="card-summary"><div class="card-title">Persistent Context Vehicle</div><div class="card-oneliner">Students create a detailed company/project profile doc and upload it to every AI conversation — teaching context management.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Give AI persistent context — a detailed profile document uploaded at conversation start. The difference between generic and brilliant output is context.</div>
-          <div class="card-course">MIS 204 &amp; MIS 430</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><span class="tool-nolink">Any LLM with file upload</span></div>
-          <div class="card-tags"><span class="card-tag">Free</span><span class="card-tag">Any Discipline</span><span class="card-tag">Core Principle</span></div>
-        </div></div>
-      </div>
-
-      <!-- #14 -->
-      <div class="card" data-tags="free,any-discipline" data-search="diagramming mermaid plantuml flowchart sequence entity relationship systems design visual architecture">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">14</div><div class="card-summary"><div class="card-title">AI Diagramming</div><div class="card-oneliner">AI generates professional system diagrams from plain English using Mermaid and PlantUML — no design skills needed.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Any course with processes, systems, or workflows can use AI diagramming. Students describe; AI draws. Iteration is instant.</div>
-          <div class="card-course">MIS 430 · Systems Analysis &amp; Design</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools">
-            <span class="tool-nolink">Any LLM + Mermaid/PlantUML</span>
-            <a href="https://mermaid.live" target="_blank" rel="noopener" class="tool-link">Mermaid Live Editor <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-          </div>
-          <div class="card-tags"><span class="card-tag">Free</span><span class="card-tag">Any Discipline</span><span class="card-tag">Visual</span></div>
-        </div></div>
-      </div>
-
-      <!-- #15 -->
-      <div class="card" data-tags="custom-gpt,any-discipline" data-search="persona simulated users design thinking user research stakeholder interview">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">15</div><div class="card-summary"><div class="card-title">AI Personas</div><div class="card-oneliner">Custom GPTs simulate realistic stakeholders — students practice user interviews and design thinking with AI characters.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Build an AI persona that simulates a real stakeholder, patient, client, or historical figure. Students practice conversations that would be impossible to arrange.</div>
-          <div class="card-course">MIS 430 · Systems Analysis &amp; Design</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><a href="https://chatgpt.com/gpts/editor" target="_blank" rel="noopener" class="tool-link">Custom GPTs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>
-          <div class="card-tags"><span class="card-tag">Custom GPTs</span><span class="card-tag">Any Discipline</span><span class="card-tag">Simulation</span></div>
-        </div></div>
-      </div>
-
-      <!-- #16 -->
-      <div class="card" data-tags="free,any-discipline" data-search="flexons multi-perspective teams innovation lenses problem solving creative thinking">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">16</div><div class="card-summary"><div class="card-title">Multi-Perspective AI Teams (Flexons)</div><div class="card-oneliner">AI simulates a team of advisors with different innovation lenses — forcing students to consider problems from multiple angles.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Ask AI to analyze a problem from 3–4 named perspectives (e.g., CFO, customer, regulator, engineer). Instant multi-stakeholder analysis.</div>
-          <div class="card-course">MIS 430 · Systems Analysis &amp; Design</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><span class="tool-nolink">Any LLM</span></div>
-          <div class="card-tags"><span class="card-tag">Free</span><span class="card-tag">Any Discipline</span><span class="card-tag">Critical Thinking</span></div>
-        </div></div>
-      </div>
-
-      <!-- #17 -->
-      <div class="card" data-tags="free,any-discipline" data-search="dual model comparison reasoning standard o1 o3 deep think critical evaluation">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">17</div><div class="card-summary"><div class="card-title">Dual-Model Comparison</div><div class="card-oneliner">Students run the same problem through a reasoning model and a standard model, then analyze why answers differ.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Compare a "fast" AI model with a "reasoning" model on the same task. Students learn that model selection is a strategic choice, not one-size-fits-all.</div>
-          <div class="card-course">MIS 430 · Systems Analysis &amp; Design</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><span class="tool-nolink">Multiple LLMs (reasoning vs. standard)</span></div>
-          <div class="card-tags"><span class="card-tag">Free</span><span class="card-tag">Any Discipline</span><span class="card-tag">AI Literacy</span></div>
-        </div></div>
-      </div>
-
-      <!-- #18 -->
-      <div class="card" data-tags="free,any-discipline" data-search="validation workflows critique AI critiquing quality review verification multi-model">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">18</div><div class="card-summary"><div class="card-title">AI Validation Workflows</div><div class="card-oneliner">Use one AI to generate, another to critique. Students learn that AI output needs verification — and AI itself can do it.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Never trust a single AI output. Have students use a second model to critique the first — builds verification habits that transfer to any field.</div>
-          <div class="card-course">MIS 430 · Systems Analysis &amp; Design</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><span class="tool-nolink">Multiple LLMs</span></div>
-          <div class="card-tags"><span class="card-tag">Free</span><span class="card-tag">Any Discipline</span><span class="card-tag">Critical Thinking</span></div>
-        </div></div>
-      </div>
-
-      <!-- #19 -->
-      <div class="card" data-tags="any-discipline,low-lift" data-search="ai-free zone game time no technology analog deliberate unplugged human">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">19</div><div class="card-summary"><div class="card-title">AI-Free Zones (Game Time!)</div><div class="card-oneliner">Deliberately AI-free activities — board games, analog challenges — because knowing when NOT to use AI is a skill too.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Build intentional AI-free moments into your course. The contrast makes students more thoughtful about when AI adds value — and when it doesn't.</div>
-          <div class="card-course">MIS 430 · Systems Analysis &amp; Design</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><span class="tool-nolink">None — that's the point</span></div>
-          <div class="card-tags"><span class="card-tag">Free</span><span class="card-tag">Any Discipline</span><span class="card-tag">Metacognition</span></div>
-        </div></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ============================
-       TIER 3: CANNONBALL
-       ============================ -->
-  <section class="tier tier--cannonball" id="tier-cannonball">
-    <div class="tier-header" onclick="toggleTier(this)">
-      <div class="tier-emoji">💥</div>
-      <div class="tier-text">
-        <h2>Cannonball</h2>
-        <p>Deep integrations, chatbot ecosystems, and AI-powered course infrastructure</p>
-      </div>
-      <svg class="tier-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="tier-cards">
-
-      <!-- #12 -->
-      <div class="card" data-tags="custom-gpt" data-search="pedagogically designed chatbot five principles design knowledge files guardrails instructional">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">12</div><div class="card-summary"><div class="card-title">Pedagogically-Designed Chatbots</div><div class="card-oneliner">Five design principles for building educational chatbots that actually teach — not just answer questions.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Design chatbots with pedagogical intent: define a role, set boundaries, upload reference materials, require Socratic engagement, and build in assessment.</div>
-          <div class="card-course">Cross-Course</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><a href="https://chatgpt.com/gpts/editor" target="_blank" rel="noopener" class="tool-link">Custom GPTs + Knowledge Files <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>
-          <div class="card-tags"><span class="card-tag">Custom GPTs</span><span class="card-tag">Framework</span></div>
-        </div></div>
-      </div>
-
-      <!-- #13 -->
-      <div class="card" data-tags="custom-gpt" data-search="connected chatbot ecosystem twelve network narrative arc semester simulation PALS">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">13</div><div class="card-summary"><div class="card-title">Connected Chatbot Ecosystem</div><div class="card-oneliner">12+ chatbots per course forming a narrative ecosystem — mentors, clients, competitors, analysts — that evolves across the semester.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Think beyond one chatbot. A connected ecosystem of AI characters creates an immersive world students inhabit all semester — not just a one-off tool.</div>
-          <div class="card-course">MIS 204 &amp; MIS 430</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><a href="https://chatgpt.com/gpts/editor" target="_blank" rel="noopener" class="tool-link">Custom GPTs + Narrative Arc <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>
-          <div class="card-tags"><span class="card-tag">Custom GPTs</span><span class="card-tag">High Investment</span><span class="card-tag">Immersive</span></div>
-        </div></div>
-      </div>
-
-      <!-- #20 -->
-      <div class="card" data-tags="custom-gpt" data-search="post-lab reflection techflow mentor socratic enterprise oracle netsuite ERP CRM">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">20</div><div class="card-summary"><div class="card-title">Post-Lab AI Reflection (TechFlow Mentor)</div><div class="card-oneliner">After hands-on labs, a Socratic chatbot pushes students to articulate the business value of what they just built.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Add a post-task AI reflection to any lab course. Students do the work first, then a chatbot asks them why it matters.</div>
-          <div class="card-course">MIS 405 &amp; MIS 406</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><a href="https://chatgpt.com/gpts/editor" target="_blank" rel="noopener" class="tool-link">Custom GPTs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>
-          <div class="card-tags"><span class="card-tag">Custom GPTs</span><span class="card-tag">Lab Courses</span></div>
-        </div></div>
-      </div>
-
-      <!-- #21 -->
-      <div class="card" data-tags="" data-search="enterprise software prompt studio oracle netsuite AI inside operational embedded">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">21</div><div class="card-summary"><div class="card-title">AI Inside Enterprise Software</div><div class="card-oneliner">Students build AI prompts directly inside Oracle NetSuite's Prompt Studio — AI as an operational tool, not a separate app.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Show students AI embedded in the professional tools they'll use at work. Every major platform — Salesforce, NetSuite, Office — now has built-in AI.</div>
-          <div class="card-course">MIS 405 · Supply Chain Management</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools">
-            <a href="https://www.netsuite.com/portal/products/artificial-intelligence-ai.shtml" target="_blank" rel="noopener" class="tool-link">Oracle NetSuite Prompt Studio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-          </div>
-          <div class="card-tags"><span class="card-tag">Enterprise Software</span><span class="card-tag">Workforce Readiness</span></div>
-        </div></div>
-      </div>
-
-      <!-- #22 -->
-      <div class="card" data-tags="custom-gpt" data-search="self-grading chatbot PALS challenges rubric assessment automated evaluation">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">22</div><div class="card-summary"><div class="card-title">Self-Grading Chatbots (PALS Challenges)</div><div class="card-oneliner">Chatbots with rubric knowledge files evaluate student work in real time — instant formative feedback at scale.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Upload your rubric as a knowledge file. The chatbot evaluates student work against YOUR criteria — not generic AI judgment.</div>
-          <div class="card-course">MIS 406 · CRM</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><a href="https://chatgpt.com/gpts/editor" target="_blank" rel="noopener" class="tool-link">Custom GPTs + Rubric Knowledge Files <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>
-          <div class="card-tags"><span class="card-tag">Custom GPTs</span><span class="card-tag">Assessment</span></div>
-        </div></div>
-      </div>
-
-      <!-- #23 -->
-      <div class="card" data-tags="any-discipline" data-search="voice flipped classroom naturalreader elevenlabs cloning narration audio lecture">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">23</div><div class="card-summary"><div class="card-title">AI Voice for Flipped Classroom</div><div class="card-oneliner">AI-generated voice narrations (or your cloned voice) deliver flipped content — professional audio without recording sessions.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Use AI text-to-speech for any content you'd normally record yourself. Voice cloning can even sound like you — from 30 seconds of sample audio.</div>
-          <div class="card-course">Cross-Course</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools">
-            <a href="https://www.naturalreaders.com" target="_blank" rel="noopener" class="tool-link">NaturalReader <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-            <a href="https://elevenlabs.io" target="_blank" rel="noopener" class="tool-link">ElevenLabs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-          </div>
-          <div class="card-tags"><span class="card-tag">Free Tiers Available</span><span class="card-tag">Any Discipline</span><span class="card-tag">Accessibility</span></div>
-        </div></div>
-      </div>
-
-      <!-- #24 -->
-      <div class="card" data-tags="custom-gpt,any-discipline" data-search="ai-proof quiz three truth format quiz-in-ator assessment cheating academic integrity">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">24</div><div class="card-summary"><div class="card-title">AI-Proof Quizzes</div><div class="card-oneliner">A "three-truth" quiz format and a Quiz-in-ator GPT that generates questions AI can't easily answer — testing real understanding.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Design quiz questions that require course-specific context AI doesn't have. The "three-truth" format: students provide 3 true statements about a topic, requiring synthesis, not recall.</div>
-          <div class="card-course">Cross-Course</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><span class="tool-nolink">Quiz-in-ator Custom GPT</span></div>
-          <div class="card-tags"><span class="card-tag">Custom GPTs</span><span class="card-tag">Any Discipline</span><span class="card-tag">Assessment</span></div>
-        </div></div>
-      </div>
-
-      <!-- #25 -->
-      <div class="card" data-tags="free,any-discipline" data-search="notebooklm course infrastructure podcast audio overview assignment flipped immersive call-in">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">25</div><div class="card-summary"><div class="card-title">NotebookLM as Course Infrastructure</div><div class="card-oneliner">Custom AI-generated podcasts for every assignment — students hear the "why" while doing the "what." Ambient learning.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Create a podcast for each assignment. Upload the instructions and objectives — students hear the strategic context while working.</div>
-          <div class="card-course">Cross-Course</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><a href="https://notebooklm.google.com" target="_blank" rel="noopener" class="tool-link">Google NotebookLM Audio Overview <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>
-          <div class="card-tags"><span class="card-tag">Free</span><span class="card-tag">Any Discipline</span><span class="card-tag">Immersive</span></div>
-        </div></div>
-      </div>
-
-      <!-- #26 -->
-      <div class="card" data-tags="" data-search="feedback pre-submission student self-check mammoth.js LLM API writing improvement draft review">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">26</div><div class="card-summary"><div class="card-title">AI Feedback Pre-Submission</div><div class="card-oneliner">Students run their work through an AI feedback system before submitting — catching issues while they can still fix them.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Give students AI-powered pre-submission feedback. They fix problems before you ever see them — raising the floor on submission quality.</div>
-          <div class="card-course">MIS 405 &amp; MIS 406</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><span class="tool-nolink">mammoth.js + LLM API</span></div>
-          <div class="card-tags"><span class="card-tag">Technical Build</span><span class="card-tag">Assessment</span></div>
-        </div></div>
-      </div>
-
-      <!-- #27 -->
-      <div class="card" data-tags="" data-search="feedback post-grading instructor assisted personalized comments scaling qualitative">
-        <div class="card-header" onclick="toggleCard(this)"><div class="card-number">27</div><div class="card-summary"><div class="card-title">AI Feedback Post-Grading</div><div class="card-oneliner">AI helps the instructor generate detailed, personalized feedback at scale — not replacing judgment, but amplifying it.</div></div><svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        <div class="card-body"><div class="card-body-inner">
-          <div class="steal-this"><strong>🔑 Steal This:</strong> Use AI to draft detailed feedback from your grading notes. You review and personalize — students get richer comments without your weekend disappearing.</div>
-          <div class="card-course">MIS 405 &amp; MIS 406</div>
-          <div class="card-tools-label">Tools</div>
-          <div class="card-tools"><span class="tool-nolink">Custom AI Feedback Assistant</span></div>
-          <div class="card-tags"><span class="card-tag">Technical Build</span><span class="card-tag">Instructor-Facing</span></div>
-        </div></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ============================
-       TIER 4: THE PRINCIPLE
-       ============================ -->
-  <section class="tier tier--principle" id="tier-principle">
-    <div class="tier-header" onclick="toggleTier(this)">
-      <div class="tier-emoji">🧠</div>
-      <div class="tier-text">
-        <h2>The Principle That Makes It All Work</h2>
-        <p>Context management — the single idea behind every experiment above</p>
-      </div>
-      <svg class="tier-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="tier-cards">
-
-      <div class="card" data-tags="free,any-discipline,low-lift" data-search="context management don't waste window principle custom instructions memory projects knowledge files">
-        <div class="card-header" onclick="toggleCard(this)">
-          <div class="card-number">✦</div>
-          <div class="card-summary">
-            <div class="card-title">Don't Waste Your Context</div>
-            <div class="card-oneliner">The single principle behind every experiment: the quality of AI output is directly proportional to the context you provide. Custom instructions, persistent profiles, knowledge files, projects — they all do the same thing: give AI the information it needs to be brilliant instead of generic.</div>
-          </div>
-          <svg class="card-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="card-body">
-          <div class="card-body-inner">
-            <div class="steal-this"><strong>🔑 The Big Steal:</strong> Every tool, every experiment, every chatbot in this presentation is ultimately about one thing — giving AI enough context to be useful. Start there, and everything else follows.</div>
-            <div class="card-tools-label">Where Context Lives</div>
-            <div class="card-tools">
-              <span class="tool-nolink">Custom Instructions</span>
-              <span class="tool-nolink">Memory / Projects</span>
-              <span class="tool-nolink">Knowledge Files</span>
-              <span class="tool-nolink">Uploaded Documents</span>
-              <span class="tool-nolink">Conversation History</span>
-            </div>
-            <div class="card-tags"><span class="card-tag">Free</span><span class="card-tag">Any Discipline</span><span class="card-tag">Foundational</span></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-name">Kyle Chalupczynski</div>
-    <div class="footer-affiliation">Management Information Systems · Penn State Behrend</div>
-    <div class="footer-disclaimer">The AI landscape changes rapidly. Tools, features, and links listed here were current as of the presentation date and may have changed. This page was built with AI as a live demonstration of Experiment #11 — context management in action.</div>
-  </footer>
-
+<div class="ctr">
+<header class="hero">
+  <div class="hero-badge">Summer Faculty Development Series</div>
+  <h1><span>27 Ways</span> to Experiment with AI</h1>
+  <p class="hero-sub">A companion resource to the presentation &mdash; every experiment, the tools behind it, and the transferable principle you can steal for your own course.</p>
+  <p class="hero-meta">By <strong>Kyle Chalupczynski</strong> &middot; Management Information Systems &middot; Penn State Behrend</p>
+</header>
+<div class="disc"><span class="disc-icon">&#9889;</span><span>The AI landscape changes fast. Tools, features, pricing, and links listed here were current as of the presentation date and may have changed. When in doubt, search for the tool name &mdash; the core platforms aren&rsquo;t going anywhere, even if specific features evolve.</span></div>
+<div class="stats">
+  <div class="stat"><div class="stat-n">27</div><div class="stat-l">Experiments</div></div>
+  <div class="stat"><div class="stat-n">4</div><div class="stat-l">Courses</div></div>
+  <div class="stat"><div class="stat-n">2.5</div><div class="stat-l">Years of &ldquo;Let&rsquo;s Try It&rdquo;</div></div>
+  <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Tools Referenced</div></div>
 </div>
+<div class="ctrl">
+  <div class="s-wrap">
+    <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" class="s-in" id="si" placeholder="Search experiments, tools, or principles&hellip;" autocomplete="off">
+  </div>
+  <div class="f-row">
+    <span class="f-label">Filter:</span>
+    <button class="f-btn on" data-f="all">All 27</button>
+    <button class="f-btn" data-f="free">Free Tools</button>
+    <button class="f-btn" data-f="custom-gpt">Uses Custom GPTs</button>
+    <button class="f-btn" data-f="any-discipline">Works in Any Discipline</button>
+    <button class="f-btn" data-f="low-lift">Low Lift to Start</button>
+  </div>
+</div>
+<div class="nr" id="nr"><div class="nr-e">&#128269;</div><p>No experiments match your search. Try different keywords or clear your filters.</p></div>
+<section class="tier t-dip"><div class="tier-h" onclick="tt(this)"><div class="tier-e">&#127958;&#65039;</div><div class="tier-t"><h2>Dip Your Toe</h2><p>Low-lift experiments you could try this semester</p></div><svg class="tier-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div><div class="tier-c" id="cd"></div></section>
+<section class="tier t-wade"><div class="tier-h" onclick="tt(this)"><div class="tier-e">&#127754;</div><div class="tier-t"><h2>Wade In</h2><p>Side quests, creative projects, and structured AI assignments</p></div><svg class="tier-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div><div class="tier-c" id="cw"></div></section>
+<section class="tier t-cb"><div class="tier-h" onclick="tt(this)"><div class="tier-e">&#128165;</div><div class="tier-t"><h2>Cannonball</h2><p>Deep integrations, chatbot ecosystems, and AI-powered course infrastructure</p></div><svg class="tier-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div><div class="tier-c" id="cc"></div></section>
+<section class="tier t-pr"><div class="tier-h" onclick="tt(this)"><div class="tier-e">&#129504;</div><div class="tier-t"><h2>The Principle That Makes It All Work</h2><p>Context management &mdash; the single idea behind every experiment above</p></div><svg class="tier-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div><div class="tier-c" id="cp"></div></section>
 
+<footer>
+  <div class="fn">Kyle Chalupczynski</div>
+  <div class="fa">Management Information Systems &middot; Penn State Behrend</div>
+  <div class="fd">The AI landscape changes rapidly. Tools, features, and links listed here were current as of the presentation date and may have changed. This page was itself built using AI &mdash; a live demonstration of the &ldquo;Don&rsquo;t Waste Your Context&rdquo; principle in action.</div>
+</footer>
+</div>
 <script>
-// ============================================
-// CARD TOGGLE
-// ============================================
-function toggleCard(header) {
-  const card = header.closest('.card');
-  const body = card.querySelector('.card-body');
-  if (card.classList.contains('open')) {
-    body.style.maxHeight = '0';
-    card.classList.remove('open');
-  } else {
-    body.style.maxHeight = body.scrollHeight + 'px';
-    card.classList.add('open');
-  }
-}
-
-// ============================================
-// TIER TOGGLE
-// ============================================
-function toggleTier(header) {
-  const tier = header.closest('.tier');
-  tier.classList.toggle('collapsed');
-  if (!tier.classList.contains('collapsed')) {
-    const cards = tier.querySelector('.tier-cards');
-    cards.style.maxHeight = cards.scrollHeight + 'px';
-    cards.style.opacity = '1';
-  }
-}
-
-// ============================================
-// SEARCH
-// ============================================
-const searchInput = document.getElementById('searchInput');
-const noResults = document.getElementById('noResults');
-
-searchInput.addEventListener('input', function() {
-  const query = this.value.toLowerCase().trim();
-  filterAndSearch();
+const E=[{"tier": "dip", "num": "01", "tags": "free,any-discipline,low-lift", "search": "study mode learning chatgpt gemini claude socratic tutoring quiz guided learnlm", "title": "Learning & Study Modes", "ol": "All three major platforms now have Socratic tutoring modes that guide instead of giving answers.", "steal": "Point students to any platform's study mode for your subject. They get Socratic tutoring — free, on-demand, and it won't just hand over answers.", "course": "General · Any Course", "desc": "<p>In 2023, the biggest faculty concern was &ldquo;students will just ask AI for the answer.&rdquo; By 2026, all three major platforms solved this with dedicated learning modes that use Socratic questioning — guiding students to discover solutions themselves.</p><p>A Google randomized controlled trial showed LearnLM-tutored students were 5.5 percentage points more likely to solve novel problems than students tutored only by humans. These aren&rsquo;t gimmicks — they&rsquo;re pedagogically grounded.</p>", "tools": [{"name": "ChatGPT Study Mode", "url": "https://chatgpt.com", "free": true, "fl": "FREE", "desc": "Select &ldquo;Study and learn&rdquo; from the Tools menu. Asks guiding questions, breaks concepts into steps, checks understanding. March 2026 added interactive visual modules for 70+ math/science topics. Available to all users — no subscription required."}, {"name": "Gemini Guided Learning", "url": "https://gemini.google.com", "free": true, "fl": "FREE", "desc": "Powered by Google&rsquo;s LearnLM models, fine-tuned for learning using cognitive science. Integrates images, YouTube videos, and diagrams. Generates custom quizzes from any topic. Free AI Pro for students in several countries."}, {"name": "Claude Learning Mode", "url": "https://claude.ai", "free": true, "fl": "FREE", "desc": "Select &ldquo;Learning&rdquo; from the style dropdown. Uses Socratic questioning. Extends into coding education — in Claude Code, inserts #TODO comments prompting users to write code themselves."}], "tags2": ["Free", "Any Discipline", "Zero Setup"]}, {"tier": "dip", "num": "02", "tags": "free,any-discipline,low-lift", "search": "feature spotlight five minute demo custom instructions memory projects artifacts canvas deep research", "title": "Feature Spotlight", "ol": "A recurring 5-minute demo of one AI feature per week — students learn the ecosystem, not just one tool.", "steal": "Dedicate 5 minutes per week to demoing one AI feature. By semester&rsquo;s end, students have seen 15+ capabilities instead of just &ldquo;chatbot.&rdquo;", "course": "MIS 204 · Intro to MIS", "desc": "<p>Most students think AI = &ldquo;type a question, get a paragraph.&rdquo; The Feature Spotlight shatters that mental model one week at a time. Each class opens with a 5-minute demo of one feature — Custom Instructions, Memory, Projects, Artifacts, Canvas, Deep Research, open-source models — with zero formal assessment.</p><p>By semester&rsquo;s end, students have a sophisticated mental map of AI capabilities going far beyond chat. This is AI literacy through exposure, not lecture.</p>", "tools": [{"name": "Custom Instructions & Memory", "desc": "Teach AI about yourself once and it remembers. Available on ChatGPT (free), Claude (Projects), Gemini (Gems). The key insight: AI that knows your context gives dramatically better output."}, {"name": "Artifacts, Canvas & File Creation", "desc": "Claude creates interactive React components, games, and data visualizations. ChatGPT&rsquo;s Canvas offers a collaborative writing/coding workspace. Both generate downloadable Word, Excel, PowerPoint, and PDF files."}, {"name": "Deep Research", "desc": "Available on ChatGPT, Gemini, and Claude. AI spends 5–45 minutes autonomously browsing hundreds of websites and compiling cited reports. Gemini scored 46.4% on Humanity&rsquo;s Last Exam (vs. ChatGPT&rsquo;s 26.6%). ChatGPT offers 5 free queries/month."}], "tags2": ["Free", "Any Discipline", "Recurring Format"]}, {"tier": "dip", "num": "03", "tags": "free,any-discipline,low-lift", "search": "notebooklm discovery challenge google podcast audio overview source grounded", "title": "NotebookLM Discovery Challenge", "ol": "Students explore NotebookLM&rsquo;s source-grounded AI — upload docs, generate podcasts, discover features themselves.", "steal": "Give students a tool they&rsquo;ve never seen and 30 minutes to explore it. Discovery beats instruction.", "course": "MIS 204 · Intro to MIS", "desc": "<p>NotebookLM only answers based on documents you upload. No hallucination from general knowledge — every response includes clickable citations. This &ldquo;walled garden&rdquo; approach is specifically valued by educators.</p><p>The headline feature is Audio Overview — upload sources and get a podcast-style conversation between two AI hosts. Four formats: Deep Dive (6–30 min), Brief (1–2 min), Critique, and Debate. Interactive Mode lets students &ldquo;call in&rdquo; during playback to ask the hosts questions — they answer from your sources, then resume.</p>", "tools": [{"name": "Google NotebookLM", "url": "https://notebooklm.google.com", "free": true, "fl": "FREE — 3 podcasts/day", "desc": "Free: 50 sources/notebook, 50 chat queries/day, 3 audio/day. Supports PDFs, Google Docs/Sheets/Slides, Word, CSV, URLs, YouTube, audio, images (OCR). Plus (~$19.99/mo via Google One AI Premium, 50% student discount) expands to 300 sources and 20 audio/day."}], "tags2": ["Free", "Any Discipline", "Single Class Period"]}, {"tier": "dip", "num": "04", "tags": "free,any-discipline,low-lift", "search": "model explorer compare five models claude chatgpt gemini llama grok reasoning side by side", "title": "AI Model Explorer", "ol": "Same prompt, five different AIs. Students discover models have distinct personalities, strengths, and blind spots.", "steal": "Have students run the same prompt through 3–5 models and compare. Teaches critical evaluation better than any AI literacy lecture.", "course": "MIS 204 · Intro to MIS", "desc": "<p>Students assume &ldquo;AI&rdquo; is one thing. This destroys that assumption. Claude tends toward nuanced analysis; ChatGPT is conversational; Gemini integrates web results; Grok is blunt; Llama shows what runs on your own hardware.</p><p>The comparison teaches: AI is not a monolith. Model selection is a strategic choice — like choosing between Excel and Google Sheets, except the differences are more dramatic.</p>", "tools": [{"name": "Claude", "url": "https://claude.ai", "free": true, "fl": "FREE", "desc": "Anthropic&rsquo;s model. Strongest for detailed analysis, document processing, and nuanced writing. Pro at $20/month. Currently running Opus 4.6 and Sonnet 4.6."}, {"name": "ChatGPT", "url": "https://chatgpt.com", "free": true, "fl": "FREE", "desc": "OpenAI&rsquo;s flagship. Largest user base, broadest features (images, voice, Canvas, code execution). Plus at $20/month adds GPT-5.2 and Deep Research."}, {"name": "Gemini", "url": "https://gemini.google.com", "free": true, "fl": "FREE", "desc": "Google&rsquo;s model. Deepest Workspace integration. Best free-tier image generation (100 images/day). AI Pro at $19.99/month; free for students in several countries."}, {"name": "Grok", "url": "https://x.ai", "free": true, "fl": "FREE", "desc": "xAI&rsquo;s model. Real-time X/Twitter data. Less filtered, more direct. SuperGrok at $30/month."}, {"name": "Llama (Meta, Open Source)", "desc": "Free to download and run locally — no data leaves your machine. Available through Hugging Face, Ollama, or dozens of hosting platforms."}], "tags2": ["Free", "Any Discipline", "AI Literacy"]}, {"tier": "dip", "num": "05", "tags": "free,low-lift", "search": "gpt store discovery custom gpts wolfram browse marketplace", "title": "GPT Store Discovery", "ol": "Students browse 3M+ custom GPTs and find ones relevant to their field — like an app store for AI.", "steal": "Send students to the GPT Store: find 4 custom GPTs relevant to your field and evaluate which is actually useful.", "course": "MIS 204 · Intro to MIS", "desc": "<p>Over 3 million specialized AI assistants: Wolfram GPT for math, Consensus for peer-reviewed research, plus GPTs for legal, writing, data analysis, and every professional domain. The assignment: search, test, and evaluate quality — teaching that AI is an ecosystem, not one tool.</p>", "tools": [{"name": "ChatGPT GPT Store", "url": "https://chatgpt.com/gpts", "paid": true, "desc": "3M+ custom GPTs. Browse by category or search. Requires ChatGPT Plus ($20/mo). Example: Wolfram GPT for computation, Consensus GPT for peer-reviewed research."}], "tags2": ["Requires ChatGPT Plus", "Low Lift", "Discovery"]}, {"tier": "wade", "num": "06", "tags": "free,any-discipline", "search": "image generation souls window art creative dall-e midjourney gemini adobe firefly nano banana", "title": "AI Image Generation (Soul&rsquo;s Window)", "ol": "Students create AI art from emotional prompts and submit to a class gallery — identity through image generation.", "steal": "Pair AI image generation with a reflective prompt. Students learn prompting through creative expression, not technical drills.", "course": "MIS 204 · Intro to MIS", "desc": "<p>AI image generation crossed the &ldquo;uncanny valley&rdquo; in 2025 — photorealistic output at 4K, text rendering solved. The quality gap between tools narrowed so much that the differentiator is now accessibility and pricing.</p><p>Soul&rsquo;s Window uses this for creative expression: students craft prompts exploring identity, generate across tools, and submit to a class Padlet. The learning is how language precision shapes AI output.</p>", "tools": [{"name": "ChatGPT (GPT-4o Images)", "url": "https://chatgpt.com", "free": true, "fl": "FREE (limited)", "desc": "Just ask ChatGPT to create an image. Replaced DALL-E 3. Most accessible entry point."}, {"name": "Google Gemini (Nano Banana 2)", "url": "https://gemini.google.com", "free": true, "fl": "FREE — 100 images/day", "desc": "Most generous free tier. 4K output. Over 1 billion images generated in 53 days. Quality rivals paid competitors."}, {"name": "Microsoft Copilot", "url": "https://copilot.microsoft.com", "free": true, "fl": "FREE", "desc": "Free DALL-E-powered generation. Good for students with Microsoft accounts."}, {"name": "Adobe Express (Firefly)", "url": "https://www.adobe.com/express", "free": true, "fl": "FREE — 25 credits/mo", "desc": "Commercially safest — trained on licensed content with IP indemnification. Best if students might use images professionally."}], "tags2": ["Free Tiers", "Creative", "Any Discipline"]}, {"tier": "wade", "num": "07", "tags": "free,any-discipline", "search": "music suno udio album songs creative audio elevenlabs", "title": "AI Music (Class Album Tracks)", "ol": "Students compose songs with AI and contribute to a class album — the ultimate &ldquo;wait, AI does THIS?&rdquo; moment.", "steal": "Assign a creative AI modality students don&rsquo;t expect. Music generation is the ultimate surprise.", "course": "MIS 204 · Intro to MIS", "desc": "<p>97% of listeners can&rsquo;t distinguish AI music from human-produced tracks (Deezer/Ipsos study). Suno generates ~7 million songs daily. Students describe a song and get a complete track with vocals, instruments, and production in under a minute.</p>", "tools": [{"name": "Suno V5", "url": "https://suno.com", "free": true, "fl": "FREE — ~10 songs/day", "desc": "Market leader. Complete songs in 20–60 seconds. Up to 8 minutes, all genres, multilingual vocals. Suno Studio adds a browser-based DAW. Pro at $10/month with commercial rights."}, {"name": "Udio", "url": "https://udio.com", "free": true, "fl": "FREE — 10 credits/day", "desc": "Highest audio fidelity in blind tests. 48kHz stereo. Note: downloads currently disabled after lawsuit settlements. New licensed platform planned mid-2026."}, {"name": "ElevenLabs Eleven Music", "url": "https://elevenlabs.io/music", "desc": "Trained on licensed data — lowest legal risk for vocal music. Songs up to 5 minutes. ~11 free minutes."}], "tags2": ["Free Tiers", "Creative", "Any Discipline"]}, {"tier": "wade", "num": "08", "tags": "free", "search": "video commercial veo sora runway kling pika generation cinematic", "title": "AI Video Commercials", "ol": "Students produce AI-generated video commercials — cinematic output from text prompts, no camera needed.", "steal": "AI video lets students create polished media without production skills. Focus on the concept, not the camera.", "course": "MIS 204 · Intro to MIS", "desc": "<p>Video generation reached cinematic quality in 2025–2026: native 4K, synchronized dialogue/sound, videos up to 3 minutes. Students produce commercial-quality video from a text prompt — no camera, editing software, or production experience.</p>", "tools": [{"name": "Google Veo 3.1", "url": "https://deepmind.google/technologies/veo/", "free": true, "fl": "FREE (limited)", "desc": "Benchmark leader. Only model with native synchronized dialogue, sound effects, ambient audio. 8-sec clips. Limited free via Gemini; AI Pro ($19.99/mo) ~8 videos/month."}, {"name": "Kling V3.0", "url": "https://klingai.com", "free": true, "fl": "FREE — 66 credits/day", "desc": "Best value: generous daily credits, longest videos (3 min via chaining), best lip-sync. 1080p at 30–48 FPS. Most practical for student projects. From $6.99/month."}, {"name": "Pika 2.5", "url": "https://pika.art", "free": true, "fl": "FREE — 80 credits/mo", "desc": "Most beginner-friendly. Creative physics effects (crush, melt, inflate). Fastest generation (~42 sec). From $8/month."}, {"name": "OpenAI Sora 2", "url": "https://sora.com", "paid": true, "desc": "Best physics simulation. Plus ($20/mo) for 720p/5-sec; Pro ($200/mo) for 1080p/20-sec. Free access suspended Jan 2026."}], "tags2": ["Free Tiers", "Creative"]}, {"tier": "wade", "num": "09", "tags": "custom-gpt", "search": "custom gpt building culture ethics bot chatbot knowledge files gems", "title": "Custom GPT Building", "ol": "Students build custom GPTs — culture bots, ethics advisors — learning AI is something you shape, not just use.", "steal": "Have students BUILD an AI tool. Custom GPTs take 15 minutes and teach prompt engineering by doing.", "course": "MIS 204 · Intro to MIS", "desc": "<p>ChatGPT walks you through building conversationally. Students define a persona, set rules, upload reference docs, and publish. When the bot gives bad answers, they debug their own instructions — learning through iteration.</p>", "tools": [{"name": "ChatGPT Custom GPTs", "url": "https://chatgpt.com/gpts/editor", "paid": true, "desc": "Conversational builder. Upload knowledge files (PDFs, docs). Enable browsing, code execution, or image generation per GPT. 3M+ in the store. Requires Plus ($20/mo)."}, {"name": "Gemini Gems", "url": "https://gemini.google.com", "free": true, "fl": "FREE", "desc": "Custom Gemini personas with instructions. Simpler than GPTs (no knowledge file upload), but zero-cost entry point."}], "tags2": ["Plus for GPTs", "Gems Free", "Hands-On"]}, {"tier": "wade", "num": "10", "tags": "free,any-discipline", "search": "vibe coding games canvas app build game no-code karpathy replit lovable bolt v0", "title": "Vibe-Coding Games", "ol": "Describe a game in plain English — AI writes the code. Playable games from non-programmers in minutes.", "steal": "&ldquo;Vibe coding&rdquo; (Karpathy&rsquo;s term) lets anyone build apps from natural language. No coding background needed.", "course": "MIS 204 · Intro to MIS", "desc": "<p>Coined by Andrej Karpathy (Feb 2, 2025), Collins Dictionary&rsquo;s 2025 Word of the Year. 41% of all production code is now AI-generated. 75% of Replit&rsquo;s customers never write a line of code.</p><p>Students describe a game and AI creates a playable version. The pedagogy: experiencing the gap between &ldquo;what I can describe&rdquo; and &ldquo;what AI can build&rdquo; teaches specification skills for any field.</p>", "tools": [{"name": "ChatGPT Canvas", "url": "https://chatgpt.com", "free": true, "fl": "FREE", "desc": "Two-pane workspace with live preview. Describe, generate, iterate conversationally. Simplest entry point."}, {"name": "Claude Artifacts", "url": "https://claude.ai", "free": true, "fl": "FREE", "desc": "Interactive React components in-browser — games, calculators, visualizations. Shareable via link. Often more polished output."}, {"name": "Replit Agent", "url": "https://replit.com", "free": true, "fl": "FREE (daily credits)", "desc": "Everything in-browser with deployment. 75% of users never write code. Agent 4 (Mar 2026) added mobile app building. Core $25/month."}, {"name": "Also: Lovable, Bolt.new, v0", "desc": "Dedicated vibe coding platforms. Lovable ($200M ARR) builds full-stack apps from chat. Bolt: 1M free tokens/month. v0: production React UI from text/image prompts."}], "tags2": ["Free Tiers", "Any Discipline", "Mind-Blowing"]}, {"tier": "wade", "num": "11", "tags": "free,any-discipline", "search": "persistent context vehicle company profile project file upload document", "title": "Persistent Context Vehicle", "ol": "Students create a company/project profile doc and upload it to every AI conversation — teaching context management.", "steal": "Give AI persistent context — a profile document at conversation start. The difference between generic and brilliant is context.", "course": "MIS 204 & MIS 430", "desc": "<p>This is where the core principle first becomes an assignment. Students create a rich profile document — evolving across the semester — and upload it at every AI conversation start. The payoff is immediate: students with context docs get dramatically better output. They learn experientially that context is the biggest lever for AI quality.</p>", "tools": [{"name": "Any LLM with File Upload", "free": true, "fl": "FREE", "desc": "Works everywhere: ChatGPT (file upload), Claude (Projects + docs), Gemini (Drive integration). Custom Instructions and Memory also serve this function without re-uploading."}], "tags2": ["Free", "Any Discipline", "Core Principle"]}, {"tier": "wade", "num": "14", "tags": "free,any-discipline", "search": "diagramming mermaid plantuml flowchart sequence entity relationship visual", "title": "AI Diagramming", "ol": "AI generates professional diagrams from plain English — flowcharts, ER diagrams, sequences — no design skills needed.", "steal": "Any course with processes or workflows can use AI diagramming. Students describe; AI draws. Iteration is instant.", "course": "MIS 430 · Systems Analysis & Design", "desc": "<p>Ask any LLM for &ldquo;a sequence diagram showing the login flow&rdquo; and it generates Mermaid code rendering as a professional diagram. Iteration is conversational: &ldquo;add error handling&rdquo; or &ldquo;show database interactions.&rdquo; Works for any discipline with processes.</p>", "tools": [{"name": "Any LLM + Mermaid Live Editor", "url": "https://mermaid.live", "free": true, "fl": "FREE", "desc": "Ask ChatGPT, Claude, or Gemini for Mermaid code, paste into the free editor. Claude Artifacts renders Mermaid natively. Supports flowcharts, sequence, ER, Gantt, class diagrams, and more."}], "tags2": ["Free", "Any Discipline", "Visual"]}, {"tier": "wade", "num": "15", "tags": "custom-gpt,any-discipline", "search": "persona simulated users design thinking stakeholder interview patient historical", "title": "AI Personas", "ol": "Custom GPTs simulate stakeholders — students practice interviews and design thinking with AI characters.", "steal": "Build an AI persona simulating a stakeholder, patient, or historical figure. Students practice conversations impossible to arrange.", "course": "MIS 430 · Systems Analysis & Design", "desc": "<p>Upload a character profile with background, motivations, and hidden concerns. The persona stays in character and reveals information only through good questioning. Cross-discipline: nursing students interview patients, history students question figures, business students negotiate.</p>", "tools": [{"name": "Custom GPTs", "url": "https://chatgpt.com/gpts/editor", "paid": true, "desc": "Build personas with knowledge files. The persona stays in character, reveals info only when asked right questions, simulates emotions. Requires Plus ($20/mo)."}], "tags2": ["Custom GPTs", "Any Discipline", "Simulation"]}, {"tier": "wade", "num": "16", "tags": "free,any-discipline", "search": "flexons multi-perspective teams innovation lenses problem solving", "title": "Multi-Perspective AI Teams (Flexons)", "ol": "AI simulates advisors with different innovation lenses — forcing multi-angle analysis of any problem.", "steal": "Ask AI to analyze from 3–4 perspectives (CFO, customer, regulator, engineer). Instant multi-stakeholder analysis.", "course": "MIS 430 · Systems Analysis & Design", "desc": "<p>In one prompt, ask AI to analyze from a network thinker, entrepreneur, engineer, and humanist perspective. Each &ldquo;advisor&rdquo; surfaces different risks and priorities — teaching that complex problems look different depending on your frame.</p>", "tools": [{"name": "Any LLM", "free": true, "fl": "FREE", "desc": "Works on any platform, zero setup. Power is in the prompt structure. Can be done in a single conversation turn."}], "tags2": ["Free", "Any Discipline", "Critical Thinking"]}, {"tier": "wade", "num": "17", "tags": "free,any-discipline", "search": "dual model comparison reasoning standard o1 o3 deep think", "title": "Dual-Model Comparison", "ol": "Same problem through a reasoning model and a standard model — students analyze why answers differ.", "steal": "Compare a &ldquo;fast&rdquo; model with a &ldquo;reasoning&rdquo; model. Model selection is a strategic choice.", "course": "MIS 430 · Systems Analysis & Design", "desc": "<p>Standard models (GPT-4o, Sonnet, Flash) respond in seconds. Reasoning models (o3, Opus with extended thinking, Gemini with thinking) take longer and often produce fundamentally different conclusions. Students learn &ldquo;faster&rdquo; and &ldquo;better&rdquo; aren&rsquo;t the same.</p>", "tools": [{"name": "Multiple LLMs", "free": true, "fl": "FREE TIERS", "desc": "Try ChatGPT (GPT-4o vs. o3), Claude (Sonnet vs. Opus with extended thinking), or Gemini (Flash vs. Pro with thinking). Most reasoning models available on free tiers."}], "tags2": ["Free", "Any Discipline", "AI Literacy"]}, {"tier": "wade", "num": "18", "tags": "free,any-discipline", "search": "validation workflows critique AI critiquing quality review verification", "title": "AI Validation Workflows", "ol": "One AI generates, another critiques. Students learn output needs verification — and AI itself can do it.", "steal": "Never trust a single AI output. Use a second model to critique the first — builds verification habits.", "course": "MIS 430 · Systems Analysis & Design", "desc": "<p>Generate with one model, paste into another: &ldquo;critique this for accuracy, gaps, and logical errors.&rdquo; Students discover models catch each other&rsquo;s mistakes, have different blind spots, and professional AI use always includes validation.</p>", "tools": [{"name": "Any Two LLMs", "free": true, "fl": "FREE", "desc": "Generate with ChatGPT, critique with Claude (or vice versa). The key is the workflow, not the tools."}], "tags2": ["Free", "Any Discipline", "Critical Thinking"]}, {"tier": "wade", "num": "19", "tags": "any-discipline,low-lift", "search": "ai-free zone game time analog deliberate unplugged", "title": "AI-Free Zones (Game Time!)", "ol": "Deliberately AI-free activities — knowing when NOT to use AI is a skill too.", "steal": "Build intentional AI-free moments. The contrast makes students more thoughtful about when AI adds value.", "course": "MIS 430 · Systems Analysis & Design", "desc": "<p>In an AI-saturated course, deliberate absence is powerful. Board games, whiteboard challenges, human-only brainstorming — students experience what they can do unassisted, building metacognitive awareness of where AI genuinely helps versus where it&rsquo;s a crutch.</p>", "tools": [{"name": "None — that&rsquo;s the point", "desc": "No tools. No AI. No devices. Just human brains, whiteboards, and conversation."}], "tags2": ["Free", "Any Discipline", "Metacognition"]}, {"tier": "cannonball", "num": "12", "tags": "custom-gpt", "search": "pedagogically designed chatbot five principles knowledge files guardrails", "title": "Pedagogically-Designed Chatbots", "ol": "Five design principles for educational chatbots that actually teach — not just answer questions.", "steal": "Design with intent: define a role, set boundaries, upload references, require Socratic engagement, build in assessment.", "course": "Cross-Course", "desc": "<p>Most educational chatbots fail because they&rsquo;re ChatGPT with a coat of paint. Five principles: (1) defined role with constraints, (2) clear boundaries, (3) knowledge files as the bot&rsquo;s &ldquo;textbook,&rdquo; (4) Socratic engagement in the instructions, (5) assessment checkpoints. Works across Custom GPTs, Gems, or any platform.</p>", "tools": [{"name": "Custom GPTs + Knowledge Files", "url": "https://chatgpt.com/gpts/editor", "paid": true, "desc": "Upload PDFs, docs, or text as reference material. Combined with instructions, creates a bot grounded in YOUR materials. Students interact with a bot that knows your course, not the internet. Requires Plus ($20/mo)."}], "tags2": ["Custom GPTs", "Framework"]}, {"tier": "cannonball", "num": "13", "tags": "custom-gpt", "search": "connected chatbot ecosystem twelve network narrative arc PALS immersive", "title": "Connected Chatbot Ecosystem", "ol": "12+ chatbots per course forming a narrative ecosystem — mentors, clients, competitors — evolving all semester.", "steal": "Think beyond one chatbot. A connected ecosystem creates an immersive world students inhabit all semester.", "course": "MIS 204 & MIS 430", "desc": "<p>One chatbot is a tool. Twelve is a world. Students navigate mentors, clients, competitors, and analysts in a simulated professional environment. Each bot knows the others, references shared events, and evolves. The narrative arc gives every assignment stakes.</p><p>Highest investment, highest impact. Students report feeling like they work at a real company, not completing homework.</p>", "tools": [{"name": "Custom GPTs + Narrative Arc", "url": "https://chatgpt.com/gpts/editor", "paid": true, "desc": "Each bot is a separate GPT with its own personality, knowledge files, and rules. Cross-referencing managed through shared context. Significant upfront build, minimal maintenance once created. Requires Plus ($20/mo)."}], "tags2": ["Custom GPTs", "High Investment", "Immersive"]}, {"tier": "cannonball", "num": "20", "tags": "custom-gpt", "search": "post-lab reflection techflow mentor socratic oracle netsuite", "title": "Post-Lab AI Reflection (TechFlow Mentor)", "ol": "After hands-on labs, a Socratic chatbot pushes students to articulate the business value of what they built.", "steal": "Add a post-task AI reflection to any lab course. Students do the work first, then a chatbot asks why it matters.", "course": "MIS 405 & MIS 406", "desc": "<p>The TechFlow Mentor activates after hands-on Oracle NetSuite labs. It doesn&rsquo;t help with technical work — it asks students to articulate business value: &ldquo;You configured pricing — what if a competitor undercuts you by 15%?&rdquo; Bridges technical execution and strategic understanding.</p>", "tools": [{"name": "Custom GPTs", "url": "https://chatgpt.com/gpts/editor", "paid": true, "desc": "Knowledge files contain lab instructions, objectives, and business context. Tuned to never give answers — only ask questions pushing students toward their own conclusions. Requires Plus ($20/mo)."}], "tags2": ["Custom GPTs", "Lab Courses"]}, {"tier": "cannonball", "num": "21", "tags": "", "search": "enterprise software prompt studio oracle netsuite salesforce copilot microsoft workforce", "title": "AI Inside Enterprise Software", "ol": "Students build AI prompts inside Oracle NetSuite&rsquo;s Prompt Studio — AI as an operational tool, not a separate app.", "steal": "Show students AI embedded in professional tools. Every major platform — Salesforce, NetSuite, Office — has built-in AI.", "course": "MIS 405 · Supply Chain Mgmt", "desc": "<p>AI is standard infrastructure in every major business platform. Microsoft Copilot for M365 ($18–30/user/mo) is in 90%+ of Fortune 500 companies. Salesforce Agentforce ($2/conversation) deploys autonomous agents. Google Workspace embeds Gemini everywhere. In MIS 405, students build prompts inside NetSuite&rsquo;s Prompt Studio — configuring tone, format, and creativity for operational use.</p>", "tools": [{"name": "Oracle NetSuite Prompt Studio", "url": "https://www.netsuite.com/portal/products/artificial-intelligence-ai.shtml", "desc": "Custom AI prompts and &ldquo;Text Enhance&rdquo; actions across the ERP. Part of a broader ecosystem: AI invoice scanning, anomaly detection, narrative financial reporting."}, {"name": "The broader enterprise AI landscape", "desc": "Microsoft Copilot for M365 ($18–30/user/mo) — AI in Word, Excel, PPT, Outlook, Teams. Salesforce Agentforce ($2/conversation) — autonomous agents. Google Workspace AI ($7–22/user/mo) — Gemini in Docs, Sheets, Slides, Gmail."}], "tags2": ["Enterprise Software", "Workforce Readiness"]}, {"tier": "cannonball", "num": "22", "tags": "custom-gpt", "search": "self-grading chatbot PALS challenges rubric assessment automated", "title": "Self-Grading Chatbots (PALS Challenges)", "ol": "Chatbots with rubric knowledge files evaluate student work — instant formative feedback at scale.", "steal": "Upload your rubric as a knowledge file. The chatbot evaluates against YOUR criteria — not generic AI judgment.", "course": "MIS 406 · CRM", "desc": "<p>The bot receives a rubric and evaluation instructions. Students submit work and get immediate rubric-aligned feedback — &ldquo;Your segmentation analysis is strong on demographics but missing behavioral data per criterion 3.&rdquo; Students iterate before final submission; the instructor&rsquo;s rubric remains the standard.</p>", "tools": [{"name": "Custom GPTs + Rubric Knowledge Files", "url": "https://chatgpt.com/gpts/editor", "paid": true, "desc": "Upload rubric, criteria, and examples of strong/weak work. Instructions specify evaluation format and prevent the bot from completing work. Formative feedback at scale. Requires Plus ($20/mo)."}], "tags2": ["Custom GPTs", "Assessment"]}, {"tier": "cannonball", "num": "23", "tags": "any-discipline", "search": "voice flipped classroom naturalreader elevenlabs cloning narration accessibility", "title": "AI Voice for Flipped Classroom", "ol": "AI voice narrations or your cloned voice deliver flipped content — professional audio without recording sessions.", "steal": "AI text-to-speech for content you&rsquo;d normally record. Voice cloning sounds like you — from 30 seconds of audio.", "course": "Cross-Course", "desc": "<p>ElevenLabs clones your voice from 30 seconds of audio, and cloned voices speak 32+ languages automatically. Write a script, paste it in, get polished narration in your own voice — without recording, editing, or re-recording when content updates.</p>", "tools": [{"name": "ElevenLabs", "url": "https://elevenlabs.io", "free": true, "fl": "FREE — 10k chars/mo", "desc": "Industry leader ($11B valuation). Instant cloning from 30 sec at $5/mo. Professional Cloning (30+ min recording) at $22/mo. 32+ languages. Also: real-time voice changing and AI dubbing."}, {"name": "NaturalReader", "url": "https://www.naturalreaders.com", "free": true, "fl": "FREE — 20 min/day", "desc": "Accessibility-first: 1,000+ voices, 100+ languages, reads PDFs/DOCX/EPUB with highlighting. EDU plans from $199/year for 5 users. Dyslexia-friendly features."}], "tags2": ["Free Tiers", "Any Discipline", "Accessibility"]}, {"tier": "cannonball", "num": "24", "tags": "custom-gpt,any-discipline", "search": "ai-proof quiz three truth format quiz-in-ator assessment integrity", "title": "AI-Proof Quizzes", "ol": "A &ldquo;three-truth&rdquo; format and Quiz-in-ator GPT generating questions AI can&rsquo;t easily answer.", "steal": "Design questions requiring course-specific context. Three-truth format: 3 true statements requiring synthesis, not recall.", "course": "Cross-Course", "desc": "<p>Three-truth format inverts the quiz: students generate three true, non-obvious statements about a topic — synthesis that AI can&rsquo;t fake without course-specific context. The Quiz-in-ator GPT generates questions referencing in-class discussions and multi-week integration.</p>", "tools": [{"name": "Quiz-in-ator Custom GPT", "paid": true, "desc": "Generates AI-resistant questions from your content — requiring synthesis, context-specific knowledge, and integration. The three-truth format works without any tools."}], "tags2": ["Custom GPTs", "Any Discipline", "Assessment"]}, {"tier": "cannonball", "num": "25", "tags": "free,any-discipline", "search": "notebooklm course infrastructure podcast audio overview assignment immersive call-in", "title": "NotebookLM as Course Infrastructure", "ol": "Custom AI podcasts for every assignment — students hear the &ldquo;why&rdquo; while doing the &ldquo;what.&rdquo;", "steal": "Create a podcast for each assignment. Upload instructions and objectives — students hear strategic context while working.", "course": "Cross-Course", "desc": "<p>Beyond Experiment #3&rsquo;s discovery, here NotebookLM becomes infrastructure. For every assignment, upload instructions, objectives, and materials, then generate an Audio Overview. Two AI hosts discuss strategic value — grounded in YOUR materials with zero hallucination. Play during work time for ambient immersion.</p><p>Interactive Mode: students &ldquo;call in&rdquo; to ask hosts questions live. Available in 80+ languages.</p>", "tools": [{"name": "NotebookLM Audio Overview", "url": "https://notebooklm.google.com", "free": true, "fl": "FREE — 3/day", "desc": "Free: 3 audio/day (build a library over weeks). Deep Dive (6–30 min), Brief (1–2 min), Critique, Debate. Plus (~$19.99/mo, 50% student discount): 20/day. Also generates Video Overviews, Slide Decks, Mind Maps, quizzes."}], "tags2": ["Free", "Any Discipline", "Immersive"]}, {"tier": "cannonball", "num": "26", "tags": "", "search": "feedback pre-submission student self-check mammoth.js LLM API", "title": "AI Feedback Pre-Submission", "ol": "Students run work through AI feedback before submitting — catching issues while they can still fix them.", "steal": "AI-powered pre-submission feedback. Students fix problems before you see them — raising submission quality.", "course": "MIS 405 & MIS 406", "desc": "<p>Custom system using mammoth.js (Word parsing) + LLM API. Students upload assignments, get structured rubric-aligned feedback before submission. Requires coding to build, but the principle can be approximated with a Custom GPT containing your rubric (see #22).</p>", "tools": [{"name": "mammoth.js + LLM API (Custom Build)", "desc": "Technical build: mammoth.js parses .docx in-browser; text goes to LLM API with rubric context. Simpler alternative: Custom GPT with rubric as knowledge file."}], "tags2": ["Technical Build", "Assessment"]}, {"tier": "cannonball", "num": "27", "tags": "", "search": "feedback post-grading instructor assisted personalized comments scaling", "title": "AI Feedback Post-Grading", "ol": "AI helps generate detailed, personalized feedback at scale — amplifying instructor judgment, not replacing it.", "steal": "AI drafts detailed feedback from your grading notes. You review and personalize — richer comments, fewer lost weekends.", "course": "MIS 405 & MIS 406", "desc": "<p>Paste shorthand notes + student submission into AI: &ldquo;Draft detailed, constructive feedback in my voice.&rdquo; Review, adjust, send. Students get richer feedback; instructor judgment drives the grade, AI amplifies communication.</p>", "tools": [{"name": "Any LLM", "free": true, "fl": "FREE", "desc": "Works on any platform. Claude Projects is ideal — persistent rubric, criteria, and style context. Batch processing possible for larger classes."}], "tags2": ["Free", "Instructor-Facing"]}, {"tier": "principle", "num": "✦", "tags": "free,any-discipline,low-lift", "search": "context management don't waste window principle custom instructions memory projects knowledge", "title": "Don&rsquo;t Waste Your Context", "ol": "AI output quality is directly proportional to context provided. Every experiment above is about this one principle.", "steal": "Every tool, every experiment, every chatbot is about one thing — giving AI enough context to be useful. Start there.", "course": "The Foundational Principle", "desc": "<p>Custom Instructions tell AI who you are. Memory lets it learn. Projects and knowledge files give it your materials. Persistent context docs (Experiment #11) carry details across conversations. Ecosystems (#13) maintain narrative across a semester.</p><p>A student who uploads a company profile before asking for marketing advice gets dramatically better output than one who types &ldquo;give me marketing ideas.&rdquo; A faculty member who creates a Claude Project with their syllabus gets drafts that sound like them.</p><p>Context management is the single most transferable AI skill — more important than any tool, template, or technique. If students learn nothing else, teach them this.</p>", "tools": [{"name": "ChatGPT", "desc": "Custom Instructions (persistent), Memory (learns from conversations), Projects (organize chats + files), Knowledge Files in Custom GPTs."}, {"name": "Claude", "desc": "Projects (persistent instructions + docs), Styles (response format), Memory (learns across conversations)."}, {"name": "Gemini", "desc": "Gems (custom personas), Drive integration, Extensions (Gmail, Docs, Calendar for automatic context)."}], "tags2": ["Free", "Any Discipline", "Foundational"]}];
+const C={dip:document.getElementById('cd'),wade:document.getElementById('cw'),cannonball:document.getElementById('cc'),principle:document.getElementById('cp')};
+E.forEach(e=>{
+  const th=e.tools.map(t=>{
+    const nl=t.url?`<a href="${t.url}" target="_blank" rel="noopener">${t.name}</a>`:t.name;
+    const b=t.free?`<span class="badge-f">${t.fl||'FREE'}</span>`:t.paid?`<span class="badge-p">PAID</span>`:'';
+    return `<div class="tc"><div class="tc-n">${nl} ${b}</div><div class="tc-d">${t.desc}</div></div>`;
+  }).join('');
+  const tg=e.tags2.map(t=>`<span class="tag">${t}</span>`).join('');
+  C[e.tier].insertAdjacentHTML('beforeend',`<div class="card" data-t="${e.tags}" data-s="${e.search} ${e.title.toLowerCase()}">
+    <div class="card-h" onclick="tc(this)"><div class="card-num">${e.num}</div><div class="card-s"><div class="card-ti">${e.title}</div><div class="card-ol">${e.ol}</div></div><svg class="card-ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="card-b"><div class="card-bi">
+      <div class="st"><strong>\u{1f511} Steal This:</strong> ${e.steal}</div>
+      <div class="card-co">${e.course}</div>
+      <div class="card-d">${e.desc}</div>
+      <div class="tl">Tools</div>
+      <div class="tools">${th}</div>
+      <div class="tags">${tg}</div>
+    </div></div></div>`);
 });
-
-// ============================================
-// FILTER BUTTONS
-// ============================================
-const filterBtns = document.querySelectorAll('.filter-btn');
-let activeFilter = 'all';
-
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', function() {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    activeFilter = this.dataset.filter;
-    filterAndSearch();
+function tc(h){h.closest('.card').classList.toggle('open')}
+function tt(h){h.closest('.tier').classList.toggle('off')}
+const si=document.getElementById('si'),nr=document.getElementById('nr');
+let af='all';
+si.addEventListener('input',fs);
+document.querySelectorAll('.f-btn').forEach(b=>b.addEventListener('click',function(){
+  document.querySelectorAll('.f-btn').forEach(x=>x.classList.remove('on'));
+  this.classList.add('on');af=this.dataset.f;fs();
+}));
+function fs(){
+  const q=si.value.toLowerCase().trim();
+  let v=0;
+  document.querySelectorAll('.card').forEach(c=>{
+    const t=c.dataset.t||'',s=(c.dataset.s||'')+' '+c.textContent.toLowerCase();
+    const ok=(af==='all'||t.includes(af))&&(!q||s.includes(q));
+    c.classList.toggle('hid',!ok);if(ok)v++;
   });
-});
-
-function filterAndSearch() {
-  const query = searchInput.value.toLowerCase().trim();
-  const cards = document.querySelectorAll('.card');
-  let visibleCount = 0;
-
-  cards.forEach((card, i) => {
-    const tags = card.dataset.tags || '';
-    const searchText = (card.dataset.search || '') + ' ' + card.textContent.toLowerCase();
-    
-    let matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
-    let matchesSearch = !query || searchText.includes(query);
-    
-    if (matchesFilter && matchesSearch) {
-      card.classList.remove('hidden');
-      card.style.animationDelay = (visibleCount * 0.03) + 's';
-      visibleCount++;
-    } else {
-      card.classList.add('hidden');
-    }
-  });
-
-  // Show/hide tiers based on visible cards
-  document.querySelectorAll('.tier').forEach(tier => {
-    const visibleCards = tier.querySelectorAll('.card:not(.hidden)');
-    tier.style.display = visibleCards.length === 0 ? 'none' : '';
-  });
-
-  noResults.classList.toggle('visible', visibleCount === 0);
+  document.querySelectorAll('.tier').forEach(t=>t.style.display=t.querySelectorAll('.card:not(.hid)').length===0?'none':'');
+  nr.classList.toggle('vis',v===0);
 }
-
-// ============================================
-// INIT: Set tier card max heights
-// ============================================
-document.querySelectorAll('.tier-cards').forEach(cards => {
-  cards.style.maxHeight = cards.scrollHeight + 'px';
-  cards.style.opacity = '1';
-});
-
-// Staggered card animations on load
-document.querySelectorAll('.card').forEach((card, i) => {
-  card.style.animationDelay = (i * 0.04) + 's';
-});
 </script>
-
 </body>
 </html>
